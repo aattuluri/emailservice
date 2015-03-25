@@ -6,20 +6,22 @@
 For better tracking purposes only one email message can be sent per request. The REST API is a simple HTTP POST request. The details about using the REST API are below:
 
 ##Request Format
-URL: http://emailservice.elasticbeanstalk.com/SendEmail
-Request Type: POST
-ContentType: application/json
-Payload:
+URL: http://emailservice.elasticbeanstalk.com/SendEmail  
+Request Type: POST  
+ContentType: application/json  
+Payload:  
+```javascript
 {
-  email: {
-       from: "anilcs0405@gmail.com",              //mandatory
-       to: ["abc@gmail.com", "xyz@gmail.com"],    //mandatory
-       cc: [],                                    //optional
-       bcc: [],                                   //optional
-       subject: "Hello email!",                   //optional
-       message: "Hello\nThis is a hello email from Email Service!\n\nThank You\nEmail Service." //mandatory
+  "email": {
+       "from": "anilcs0405@gmail.com",              //mandatory
+       "to": ["abc@gmail.com", "xyz@gmail.com"],    //mandatory
+       "cc": [],                                    //optional
+       "bcc": [],                                   //optional
+       "subject": "Hello email!",                   //optional
+       "message": "Hello\nThis is a hello email from Email Service!\n\nThank You\nEmail Service." //mandatory
   }
 }
+```
 
 ###from - string
 Specifies the email address of the sender
@@ -35,18 +37,20 @@ Specifies subject of the email (utf-8 format)
 Specifies body of the email (utf-8 format)
 
 ##Response Format
-200 - Request successful, the json has the results
-Response body: JSON, see the examples below.
-Example 1:
+200 - Request successful, the json has the results  
+Response body: JSON, see the examples below.  
+Example 1:  
+```javascript
 {
-  success: true     //email was sent successfully
+  "success": true     //email was sent successfully
 }
-
-Example 2:
+```
+Example 2:  
+```javascript
 {
-  success: false,   //failed to send the email
-  errorMessage: "service_is_down" //error message, this is not a code, so shouldn't be used by the client machine to retry
+  "success": false,   //failed to send the email
+  "errorMessage": "service_is_down" //error message, this is not a code, so shouldn't be used by the client machine to retry
 }
-
-400 - Bad request (one or more mandatory parameters are missing)
-500 - Internal server error (unknown errors on server side, Ex: no network connectivity)
+```
+400 - Bad request (one or more mandatory parameters are missing)  
+500 - Internal server error (unknown errors on server side, Ex: no network connectivity)  
