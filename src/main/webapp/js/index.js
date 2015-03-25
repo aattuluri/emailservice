@@ -40,14 +40,14 @@ function sendEmailRequest () {
 	
 	$.ajax({
 		type: "POST",
-		url: "http://localhost:8080/EmailService/SendEmail",
+		url: "http://emailservice.elasticbeanstalk.com/SendEmail",
 		data: JSON.stringify(jsonObj),
 		success: function(data, textStatus) {
-			$("#status").html("Success");
+			$("#status").html("Email was sent successfully.");
 			$("#status").removeClass("error").addClass("success");
 		},
 		error: function(xhr) {
-			$("#status").html("Failed to send email. Status: " + xhr.status);
+			$("#status").html("Failed to send the email. Server status code: " + xhr.status);
 			$("#status").removeClass("success").addClass("error");
 		},
 		contentType: "application/json",
