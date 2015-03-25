@@ -37,15 +37,15 @@ Specifies subject of the email (utf-8 format)
 Specifies body of the email (utf-8 format)
 
 ##Response Format
-200 - Request successful, the json has the results  
-Response body: JSON, see the examples below.  
-Example 1:  
+200 - Request successful, the response has json which tells if the email was sent successfully.
+Response body: json, see the examples below.  
+Example response when email sending is successful:  
 ```javascript
 {
   "success": true     //email was sent successfully
 }
 ```
-Example 2:  
+Example response when email sending fails:  
 ```javascript
 {
   "success": false,   //failed to send the email
