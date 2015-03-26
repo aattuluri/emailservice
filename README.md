@@ -3,9 +3,9 @@
 
 
 #REST API Documentation
-For better tracking purposes only one email message can be sent per request. The REST API is a simple HTTP POST request. The details about using the REST API are below:
+For better tracking purposes only one email message can be sent per request. The REST API is a simple HTTP POST request with a json payload, please see the Request section below) and the response is a standard HTTP status code with optional payload (please see the Response section below).
 
-##Request Format
+##Request
 URL: http://emailservice.elasticbeanstalk.com/SendEmail  
 Request Type: POST  
 ContentType: application/json  
@@ -13,44 +13,46 @@ Payload:
 ```javascript
 {
   "email": {
-       "from": "anilcs0405@gmail.com",              //mandatory
-       "to": ["abc@gmail.com", "xyz@gmail.com"],    //mandatory
-       "cc": [],                                    //optional
-       "bcc": [],                                   //optional
-       "subject": "Hello email!",                   //optional
-       "message": "Hello\nThis is a hello email from Email Service!\n\nThank You\nEmail Service." //mandatory
+       "from": "anilcs0405@gmail.com",              
+       "to": ["abc@gmail.com", "xyz@gmail.com"],   
+       "cc": [],                                   
+       "bcc": [],                                   
+       "subject": "Hello email!",                   
+       "message": "Hello\nThis is a hello email from Email Service!\n\nThank You\nEmail Service." 
   }
 }
 ```
 
-###from - string
-Specifies the email address of the sender
-###to - array
-Specifies the list of email addresses the email should be sent to.
-###cc - array
-Specifies the list of email addresses the email should be CC'ed to.
-###bcc - array
-Specifies the list of email addresses the email should be BCC'ed to.
-###subject - string
-Specifies subject of the email (utf-8 format)
-###message - string
-Specifies body of the email (utf-8 format)
+from - mandatory - string  
+Specifies the email address of the sender  
+to - mandatory - array (of strings)  
+Specifies the list of email addresses the email should be sent to.  
+cc - optional - array (of strings)  
+Specifies the list of email addresses the email should be CC'ed to.  
+bcc - optional - array (of strings)  
+Specifies the list of email addresses the email should be BCC'ed to.  
+subject - optional - string  
+Specifies subject of the email (utf-8 format)  
+message - mandatory - string  
+Specifies body of the email (utf-8 format)  
 
-##Response Format
-200 - Request successful, the response has json which tells if the email was sent successfully.
-Response body: json, see the examples below.  
-Example response when email sending is successful:  
+##Response
+200 - Request is successful. Please look at the response json below for the result of the operation.  
 ```javascript
 {
-  "success": true     //email was sent successfully
-}
-```
-Example response when email sending fails:  
-```javascript
-{
-  "success": false,   //failed to send the email
-  "errorMessage": "service_is_down" //error message, this is not a code, so shouldn't be used by the client machine to retry
+  "result": {
+      "success": [true|false], //mandatory, boolean - a value of 'true' will ensure that email was sent, but delivery is not guranteed.
+      "errorMessage": "blah blah blah" //optional, string - warning: this is not a standard error code
+  }
 }
 ```
 400 - Bad request (one or more mandatory parameters are missing)  
-500 - Internal server error (unknown errors on server side, Ex: no network connectivity)  
+405 - Method not allowed  (if the http request type is GET)  
+500 - Internal server error (Unexpected/unknown errors on server side, Ex: no network connectivity)  
+503 - Service unavailable  
+  
+#Future work
+Support batch requests
+Support other email functionalities like attachments etc.  
+Implement rate limiting  
+Implement database logging for all the transactions  
