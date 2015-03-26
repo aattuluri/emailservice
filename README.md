@@ -58,4 +58,4 @@ _______________________________
 Support batch requests  
 Support other email functionalities like attachments etc.  
 Implement rate limiting  
-Implement database logging for all the transactions  
+Implement database logging for all the RESTAPI transactions  
