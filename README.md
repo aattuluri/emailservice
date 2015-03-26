@@ -6,7 +6,7 @@
 **Web container:** Tomcat (7.x.x)  
 **Web framework:** Spring web framework   
 **Build tool:** Maven   
-**Libraries:**  Google gson, SendGrid, Mandrill, Apache http, Junit, Easymoc, Jquery
+**Libraries:**  Google gson, SendGrid, Mandrill, Apache http, Junit, Easymock, Jquery
 
 #REST API Documentation
 For better tracking purposes only one email message can be sent per request. The REST API is a simple HTTP POST request with a json payload (please see the Request section below) and the response is a standard HTTP status code with optional json payload (please see the Response section below).
