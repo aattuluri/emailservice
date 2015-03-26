@@ -2,10 +2,11 @@
 **Email Service** is a cloud service to send emails. This simple service uses two third party email senders (SendGrid and Mandrill) to provide a reliable email sending service. It fails over to the secondary service provider (Mandrill) when the primary (SendGrid) is not available. When both the services are not available simultaneously then the email service will be down for 60 seconds after which the server starts trying to send emails again with the last used (successful) service provider. 
 
 #Frameworks and Libraries used
-**Language & Web container:** Java 1.7 & Tomcat (7.x.x)  
-**Framework:** Spring web framework   
+**Languages:** Java (1.7), HTML, CSS, Javascript  
+**Web container:** Tomcat (7.x.x)  
+**Web framework:** Spring web framework   
 **Build tool:** Maven   
-**Libraries:** SendGrid, Mandrill, Google gson, Apache http, Junit & Easymoc 
+**Libraries:**  Google gson, SendGrid, Mandrill, Apache http, Junit, Easymoc, Jquery
 
 #REST API Documentation
 For better tracking purposes only one email message can be sent per request. The REST API is a simple HTTP POST request with a json payload (please see the Request section below) and the response is a standard HTTP status code with optional json payload (please see the Response section below).
