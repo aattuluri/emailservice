@@ -1,5 +1,5 @@
 #Email Service
-**Email Service** is a Cloud service to send emails. This simple service uses two third party email senders (currently SendGrid and Mandrill) to provide a reliable service. It fails over to the secondary service provider (Mandrill) when the primary (SendGrid) is not available. When both the services are not available simultaneously then the email service will be down for 60 seconds after which the server starts trying to send emails again with the last used (successful) service provider. 
+**Email Service** is a cloud service to send emails. This simple service uses two third party email senders (currently SendGrid and Mandrill) to provide a reliable service. It fails over to the secondary service provider (Mandrill) when the primary (SendGrid) is not available. When both the services are not available simultaneously then the email service will be down for 60 seconds after which the server starts trying to send emails again with the last used (successful) service provider. 
 
 
 #REST API Documentation
