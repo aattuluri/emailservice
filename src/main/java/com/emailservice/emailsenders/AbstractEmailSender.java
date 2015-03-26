@@ -5,6 +5,12 @@ import java.util.List;
 import com.emailservice.json.Email;
 import com.emailservice.json.Result;
 
+/**
+ * This is an abstract class (with default methods and common attributes) and any Email Senders should extend this class
+ * 
+ * @author Anil
+ *
+ */
 public abstract class AbstractEmailSender {
 	
 	protected static final String THIRDPARTY_SERVICE_FAILURE = "Thirdparty service failure.";

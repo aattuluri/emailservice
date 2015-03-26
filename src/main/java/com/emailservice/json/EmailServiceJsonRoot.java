@@ -1,5 +1,11 @@
 package com.emailservice.json;
 
+/**
+ * The root object that holds other objects for JSON marshalling and unmarshalling
+ * 
+ * @author Anil
+ *
+ */
 public class EmailServiceJsonRoot {
 	
 	private Email email;

@@ -2,6 +2,12 @@ package com.emailservice.json;
 
 import java.util.List;
 
+/**
+ * The class used for marshalling and unmarshalling email as json 
+ * 
+ * @author Anil
+ *
+ */
 public class Email {
 	
 	private String from;

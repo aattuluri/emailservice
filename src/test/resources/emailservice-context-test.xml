@@ -13,6 +13,10 @@
 		base-package="com.emailservice.service" />
 	
 	<bean id="emailSenderService"
-		class="com.emailservice.service.EmailSenderService"/>
+		class="com.emailservice.service.EmailSenderService">
+		<property name="sendgridUsername" value="anilcs0405" />
+		<property name="sendgridPassword" value="gaBazab9" />
+		<property name="mandrillApiKey" value="8QewPGciRLYLELgSP6jPXg" />
+	</bean>
 	
 </beans>

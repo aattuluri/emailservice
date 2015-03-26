@@ -15,60 +15,75 @@ import com.microtripit.mandrillapp.lutung.view.MandrillMessage.Recipient;
 import com.microtripit.mandrillapp.lutung.view.MandrillMessage.Recipient.Type;
 import com.microtripit.mandrillapp.lutung.view.MandrillMessageStatus;
 
+/**
+ * This class implements the email sending using Mandrill REST API service
+ * 
+ * @author Anil
+ *
+ */
 public class MandrillEmailSender extends AbstractEmailSender {
 	
 	private static Logger logger = Logger.getLogger(MandrillEmailSender.class);
 	
 	private static final String MANDRILL = "Mandrill";
+	private static final String SENT = "sent";
 		
-	public MandrillEmailSender(Email email) {
+	public MandrillEmailSender(Email email, String apiKey) {
 		super(email);
+		this.APIKEY = apiKey;
 	}
 	
-	private final String APIKEY = "8QewPGciRLYLELgSP6jPXg";
+	private String APIKEY;
 	
 	@Override
 	public Result sendEmail() {
 		
 		Result result = null;
-		MandrillApi mandrillApi = new MandrillApi(APIKEY);
-
-		// create your message
-		MandrillMessage message = new MandrillMessage();
-		
-		message.setFromEmail(email.getFrom());
-		
-		// add recipients
-		ArrayList<Recipient> recipients = new ArrayList<Recipient>();
-		List<String> toList = email.getToList();
-		addEmailRecipients (recipients, toList, Type.TO);
-		List<String> ccList = email.getCcList();
-		addEmailRecipients (recipients, ccList, Type.CC);
-		List<String> bccList = email.getBccList();
-		addEmailRecipients (recipients, bccList, Type.BCC);				
-		message.setTo(recipients);
-		
-		message.setSubject(email.getSubject());
-		message.setHtml(email.getMessage());
-			
 		try {
+			MandrillApi mandrillApi = new MandrillApi(APIKEY);
+	
+			// create your message
+			MandrillMessage message = new MandrillMessage();
+			
+			message.setFromEmail(email.getFrom());
+			
+			// add recipients
+			ArrayList<Recipient> recipients = new ArrayList<Recipient>();
+			List<String> toList = email.getToList();
+			addEmailRecipients (recipients, toList, Type.TO);
+			List<String> ccList = email.getCcList();
+			addEmailRecipients (recipients, ccList, Type.CC);
+			List<String> bccList = email.getBccList();
+			addEmailRecipients (recipients, bccList, Type.BCC);				
+			message.setTo(recipients);
+			
+			message.setSubject(email.getSubject());
+			message.setHtml(email.getMessage());
+			
 			MandrillMessageStatus[] messageStatusReports = mandrillApi
 			        .messages().send(message, false);	
 			MandrillMessageStatus status = messageStatusReports[messageStatusReports.length - 1];
-			if (status.getStatus() != null) {
+			if (status.getStatus() != null &&
+					status.getStatus().equals(SENT)) {
 				logger.info(String.format(EMAIL_SENDING_SUCCESSFUL, MANDRILL));
 				result = new Result(true, null);
 			} else {
 				logger.error(String.format(EMAIL_SENDING_FAILED, MANDRILL)
 						+ status.getRejectReason());
-				result = new Result(true, THIRDPARTY_SERVICE_FAILURE);
+				result = new Result(false, THIRDPARTY_SERVICE_FAILURE);
 			}
 		} catch (MandrillApiError e) {
 			logger.error(String.format(EMAIL_SENDING_FAILED, MANDRILL), e);
 			result = new Result(false, THIRDPARTY_SERVICE_FAILURE);
+			result.setServiceIsDown(true);
 		} catch (IOException e) {
 			logger.error(String.format(EMAIL_SENDING_FAILED, MANDRILL), e);
 			result = new Result(false, THIRDPARTY_SERVICE_FAILURE);
+			result.setServiceIsDown(true);
+		} catch (Exception e) {
+			logger.error(String.format(EMAIL_SENDING_FAILED, MANDRILL), e);
+			result = new Result(false, THIRDPARTY_SERVICE_FAILURE);
+			result.setServiceIsDown(true);
 		}
 		
 		return result;
@@ -82,23 +97,6 @@ public class MandrillEmailSender extends AbstractEmailSender {
 				recipient.setType(type);
 				recipients.add(recipient);
 			}
-		}
-	}
-	
-	public static void main (String [] args) {
-		Email email = new Email ();
-		List<String> toList = new ArrayList<String>();
-		toList.add("anilcs0405@gmail.com");
-		email.setToList(toList);
-		email.setFrom("anilcs0405@gmail.com");
-		email.setSubject("Empty subject");
-		email.setMessage("Hi,\n\nEmpty content\n\n\nThank you,\nEmail Service");
-		AbstractEmailSender emailSender = new MandrillEmailSender(email);
-		Result result = emailSender.sendEmail();
-		if (result.isSuccess()) {
-			System.out.println("Success");
-		} else {
-			System.out.println("Failed: " + result.getErrorMessage());
 		}
 	}
 
