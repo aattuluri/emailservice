@@ -6,10 +6,10 @@
 For better tracking purposes only one email message can be sent per request. The REST API is a simple HTTP POST request with a json payload, please see the Request section below) and the response is a standard HTTP status code with optional payload (please see the Response section below).
 
 ##Request
-URL: http://emailservice.elasticbeanstalk.com/SendEmail  
-Request Type: POST  
-ContentType: application/json  
-Payload:  
+**URL:** http://emailservice.elasticbeanstalk.com/SendEmail  
+**Request Type:** POST  
+**ContentType:** application/json  
+**Payload:**  
 ```javascript
 {
   "email": {
@@ -22,22 +22,23 @@ Payload:
   }
 }
 ```
-
-from - mandatory - string  
+**Key - Requirement - Data type**  
+*from* - mandatory - string  
 Specifies the email address of the sender  
-to - mandatory - array (of strings)  
+*to* - mandatory - array (of strings)  
 Specifies the list of email addresses the email should be sent to.  
-cc - optional - array (of strings)  
+*cc* - optional - array (of strings)  
 Specifies the list of email addresses the email should be CC'ed to.  
-bcc - optional - array (of strings)  
+*bcc* - optional - array (of strings)  
 Specifies the list of email addresses the email should be BCC'ed to.  
-subject - optional - string  
+*subject* - optional - string  
 Specifies subject of the email (utf-8 format)  
-message - mandatory - string  
+*message* - mandatory - string  
 Specifies body of the email (utf-8 format)  
 
 ##Response
-200 - Request is successful. Please look at the response json below for the result of the operation.  
+**Response code - Description**
+**200** - Request is successful. Please look at the response json below for the result of the operation.  
 ```javascript
 {
   "result": {
@@ -46,13 +47,13 @@ Specifies body of the email (utf-8 format)
   }
 }
 ```
-400 - Bad request (one or more mandatory parameters are missing)  
-405 - Method not allowed  (if the http request type is GET)  
-500 - Internal server error (Unexpected/unknown errors on server side, Ex: no network connectivity)  
-503 - Service unavailable  
+**400** - Bad request (one or more mandatory parameters are missing)  
+**405** - Method not allowed  (if the http request type is GET)  
+**500** - Internal server error (Unexpected/unknown errors on server side, Ex: no network connectivity)  
+**503** - Service unavailable  
   
 #Future work
-Support batch requests
+Support batch requests  
 Support other email functionalities like attachments etc.  
 Implement rate limiting  
 Implement database logging for all the transactions  
