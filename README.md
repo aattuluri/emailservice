@@ -23,7 +23,7 @@ For better tracking purposes only one email message can be sent per request. The
 }
 ```
 **Key - Requirement - Data type**  
----------------------------------  
+_______________________________________   
 *from* - mandatory - string  
 Specifies the email address of the sender  
 *to* - mandatory - array (of strings)  
@@ -39,7 +39,7 @@ Specifies body of the email (utf-8 format)
 
 ##Response
 **Response code - Description**  
--------------------------------------  
+_______________________________   
 **200** - Request is successful. Please look at the response json below for the result of the operation.  
 ```javascript
 {
