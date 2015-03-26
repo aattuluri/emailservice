@@ -14,9 +14,9 @@
 	
 	<bean id="emailSenderService"
 		class="com.emailservice.service.EmailSenderService">
-		<property name="sendgridUsername" value="anilcs0405" />
-		<property name="sendgridPassword" value="gaBazab9" />
-		<property name="mandrillApiKey" value="8QewPGciRLYLELgSP6jPXg" />
+		<property name="sendgridUsername" value="<your sendgrid username>" />
+		<property name="sendgridPassword" value="<your sendgrid password>" />
+		<property name="mandrillApiKey" value="<your mandrill apikey>" />
 	</bean>
 	
 </beans>
