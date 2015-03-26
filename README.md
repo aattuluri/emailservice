@@ -3,7 +3,7 @@
 
 
 #REST API Documentation
-For better tracking purposes only one email message can be sent per request. The REST API is a simple HTTP POST request with a json payload, please see the Request section below) and the response is a standard HTTP status code with optional payload (please see the Response section below).
+For better tracking purposes only one email message can be sent per request. The REST API is a simple HTTP POST request with a json payload (please see the Request section below) and the response is a standard HTTP status code with optional json payload (please see the Response section below).
 
 ##Request
 **URL:** http://emailservice.elasticbeanstalk.com/SendEmail  
